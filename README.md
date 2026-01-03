@@ -1,12 +1,16 @@
-# 🚀 KubeLaunch: High-Availability Multi-Master K8s Provisioner
+# KubeLaunch
 
-**KubeLaunch** is an "awesome" end-to-end automation suite designed to deploy a production-ready, self-managed Kubernetes cluster on AWS. It handles the heavy lifting of networking, high-availability compute placement, and fully automated cluster bootstrapping.
+**KubeLaunch** is an "awesome" end-to-end automation suite designed to deploy a production-ready, self-managed Kubernetes cluster on AWS. It handles the heavy lifting of networking, high-availability compute placement, and fully automated cluster bootstrapping with multi-node support.
 
 ---
 
 ## 🌟 Why is this Awesome?
 
-Most automated scripts stop at a single master. **KubeLaunch** goes further by implementing a **Multi-Master High Availability (HA)** control plane. It intelligently distributes your control plane nodes and workers across multiple Availability Zones (AZs) using a round-robin algorithm, ensuring that your cluster remains operational even if an entire AWS data center goes offline.
+Most automated scripts stop at a single master. **KubeLaunch** goes further by implementing a **Multi-Master High Availability (HA)** control plane including cost-effective for large clusters. It intelligently distributes your control plane nodes and workers across multiple Availability Zones (AZs) using a round-robin algorithm, ensuring that your cluster remains operational even if some AWS availability-zones goes offline.
+
+---
+
+**Need help?** Check out the [detailed tutorial](https://medium.com/@lakshyag404stc/simplest-way-to-deploy-a-private-kubernetes-cluster-on-aws-ec2-with-automation-74e229cbf3ee).
 
 ---
 
@@ -58,24 +62,6 @@ The project follows a clean, professional Terraform directory structure to separ
     └── k8s-cluster/      # SG rules, HA Bootstrapping, and Join logic
 
 ```
-
-## 🚀 Getting Started
-
-1. Clone the repository:
-```code
-   git clone https://github.com/lakshya404stc/KubeLaunch.git
-```
-
-2. Configure your variables:
-   Navigate to envs/dev/ and edit the terraform.tfvars or variables.tf to define your master_count, worker_count, and preferred region.
-
-3. Deploy:
-```code
-   terraform init
-   terraform plan -out=tfplan
-   terraform apply tfplan
-```
-
 ---
 
 ## 🛠 Features at a Glance
