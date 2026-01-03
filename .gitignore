@@ -4,3 +4,5 @@
 *.lock.hcl
 *.tfstate*
 tfplan
+kubeconfig-*.yaml
+.vscode

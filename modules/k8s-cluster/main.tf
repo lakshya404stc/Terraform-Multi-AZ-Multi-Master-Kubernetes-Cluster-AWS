@@ -336,11 +336,12 @@ resource "null_resource" "bootstrap_first_master" {
 
   provisioner "local-exec" {
     command = <<-EOT
-      ssh -o StrictHostKeyChecking=no -o ProxyCommand="ssh -W %h:%p -o StrictHostKeyChecking=no ${var.ssh_user}@${var.bastion_node.public_ip} -i ${var.private_key_path}" \
-        ${var.ssh_user}@${var.master_nodes[0].private_ip} -i ${var.private_key_path} \
-        'sudo cat /etc/kubernetes/admin.conf' > ${path.root}/kubeconfig-${var.cluster_name}.yaml
-      
-      sed -i 's|server: https://.*:6443|server: https://${var.master_nodes[0].private_ip}:6443|g' ${path.root}/kubeconfig-${var.cluster_name}.yaml
+      ssh -o StrictHostKeyChecking=no \
+          -o ProxyCommand="ssh -W %h:%p -o StrictHostKeyChecking=no ${var.ssh_user}@${var.bastion_node.public_ip} -i ${var.private_key_path}" \
+          ${var.ssh_user}@${var.master_nodes[0].private_ip} -i ${var.private_key_path} \
+          'sudo cat /etc/kubernetes/admin.conf' \
+          | awk '{gsub(/server: https:\/\/[^:]*:6443/, "server: https://${var.master_nodes[0].private_ip}:6443"); print}' \
+          > ${path.root}/kubeconfig-${var.cluster_name}.yaml
     EOT
   }
 
