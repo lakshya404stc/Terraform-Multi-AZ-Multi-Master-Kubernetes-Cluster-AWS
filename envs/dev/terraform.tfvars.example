@@ -1,0 +1,32 @@
+region   = "ap-south-1"
+vpc_cidr = "10.0.0.0/16"
+vpc_name = "test-k8s-vpc"
+key_name = "test-cluster"
+ami_id   = "ami-0f5ee92e2d63afc18"
+ 
+bastion_instance_type = "t2.micro"
+ 
+nodes = [
+  {
+    workload      = "master"
+    instance_type = "t3.small"
+  },
+  {
+    workload      = "master"
+    instance_type = "t3.small"
+  },
+  {
+    workload      = "worker"
+    instance_type = "t3.micro"
+  },
+  {
+    workload      = "worker"
+    instance_type = "t3.micro"
+  }
+]
+ 
+cluster_name          = "prod-k8s"
+private_key_path      = "./.ssh/test-cluster.pem"
+kubernetes_version    = "1.28.0"
+cni_plugin            = "calico"
+bastion_allowed_cidrs = ["0.0.0.0/0"]
